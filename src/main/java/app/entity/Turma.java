@@ -2,6 +2,8 @@ package app.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -39,6 +41,7 @@ public class Turma {
 			joinColumns = @JoinColumn(name = "id_turma"),
 			inverseJoinColumns = @JoinColumn(name = "id_professor")
 			)
+	@JsonIgnoreProperties("turmas")
 	private List<Professor> professores;
 	
 	@NotNull

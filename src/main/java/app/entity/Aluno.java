@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,7 +25,8 @@ public class Aluno {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@Pattern(regexp = "^\\S+\\s+\\S+.*$\r\n")
+	@NotBlank(message = "O campo nome é obrigatório")
+	@Pattern(regexp = "^\\S+\\s+\\S+.*$\r\n", message = "O nome deve conter nome e sobrenome.")
 	private String nome;
 	@CPF
 	private String cpf;

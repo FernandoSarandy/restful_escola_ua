@@ -4,11 +4,14 @@ import java.util.List;
 
 import org.hibernate.validator.constraints.br.CPF;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,7 +29,8 @@ public class Professor {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@Pattern(regexp = "^\\S+\\s+\\S+.*$\r\n")
+	@NotBlank(message = "O campo nome é obrigatório")
+	@Pattern(regexp = "^\\S+\\s+\\S+.*$\r\n", message = "O nome deve conter nome e sobrenome")
 	private String nome;
 	
 	@CPF
@@ -39,6 +43,7 @@ public class Professor {
 	private String especialidade;
 	
 	@ManyToMany(mappedBy = "professores")
+	@JsonIgnoreProperties("professores")
 	private List<Turma> turmas;
 	
 }
