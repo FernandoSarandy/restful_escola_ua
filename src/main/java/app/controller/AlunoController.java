@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import app.entity.Aluno;
@@ -68,6 +69,36 @@ public class AlunoController {
 	public ResponseEntity<List<Aluno>> findAll(){
 		try {
 			List<Aluno> lista = this.alunoService.findAll();
+			return new ResponseEntity<>(lista, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("/findByNome")
+	public ResponseEntity<List<Aluno>> findByNome(@RequestParam String nome){
+		try {
+			List<Aluno> lista = this.alunoService.findByNome(nome);
+			return new ResponseEntity<>(lista, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("/findByTelefone")
+	public ResponseEntity<List<Aluno>> findByTelefone(@RequestParam String telefone){
+		try {
+			List<Aluno> lista = this.alunoService.findByTelefoneContaining(telefone);
+			return new ResponseEntity<>(lista, HttpStatus.OK);
+		} catch(Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("/findByTurma")
+	public ResponseEntity<List<Aluno>> findByTurmaNome(@RequestParam String nome){
+		try {
+			List<Aluno> lista = this.alunoService.findByTurmaNomeLike(nome);
 			return new ResponseEntity<>(lista, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import app.entity.Turma;
@@ -68,6 +69,46 @@ public class TurmaController {
 	public ResponseEntity<List<Turma>> findAll(){
 		try {
 			List<Turma> lista = this.turmaService.findAll();
+			return new ResponseEntity<>(lista, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("/findByAno/{ano}")
+	public ResponseEntity<List<Turma>> findByAno(@PathVariable int ano){
+		try {
+			List<Turma> lista = this.turmaService.findByAnoBetween(ano);
+			return new ResponseEntity<>(lista, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("/findBySemestreAndAno")
+	public ResponseEntity<List<Turma>> findBySemestreAndAno(String semestre, int ano){
+		try {
+			List<Turma> lista = this.turmaService.findBySemestreAndAno(semestre, ano);
+			return new ResponseEntity<>(lista, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("/findByNomeAndTurno")
+	public ResponseEntity<List<Turma>> findByNomeAndTurno(@RequestParam String nome, @RequestParam String turno){
+		try {
+			List<Turma> lista = this.turmaService.findByNomeAndAno(nome, turno);
+			return new ResponseEntity<>(lista, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("/findByCurso")
+	public ResponseEntity<List<Turma>> findByCurso(@RequestParam String curso){
+		try {
+			List<Turma> lista = this.turmaService.findByCurso(curso);
 			return new ResponseEntity<>(lista, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);

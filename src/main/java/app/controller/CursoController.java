@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import app.entity.Curso;
@@ -68,6 +69,16 @@ public class CursoController {
 	public ResponseEntity<List<Curso>> findAll(){
 		try {
 			List<Curso> lista = this.cursoService.findAll();
+			return new ResponseEntity<>(lista, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("/findByName")
+	public ResponseEntity<List<Curso>> findByNome(@RequestParam String nome){
+		try {
+			List<Curso> lista = this.cursoService.findByNome(nome);
 			return new ResponseEntity<>(lista, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);

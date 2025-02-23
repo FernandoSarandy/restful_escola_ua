@@ -15,12 +15,33 @@ public class AlunoService {
 	private AlunoRepository alunoRepository;
 	
 	public String save(Aluno aluno) {
+		
+		Aluno cadastro = this.alunoRepository.findByCpf(aluno.getCpf());
+		
+		
+		if(cadastro != null) {
+			throw new RuntimeException(cadastro.getNome() + " já está cadastrado");
+		}
+		
+		if(aluno.getTelefone() == null) {
+			aluno.setCadastroCompleto(false);
+		} else {
+			aluno.setCadastroCompleto(true);
+		}
+		
 		this.alunoRepository.save(aluno);
 		return aluno.getNome() + " salvo com sucesso!";
 	}
 	
 	public String update(long id, Aluno aluno) {
 		aluno.setId(id);
+		
+		if(aluno.getTelefone() == null) {
+			aluno.setCadastroCompleto(false);
+		} else {
+			aluno.setCadastroCompleto(true);
+		}
+		
 		this.alunoRepository.save(aluno);
 		return aluno.getNome() + " atualizado com sucesso!";
 	}
@@ -37,5 +58,17 @@ public class AlunoService {
 	
 	public List<Aluno> findAll(){
 		return this.alunoRepository.findAll();
+	}
+	
+	public List<Aluno> findByNome(String nome){
+		return this.alunoRepository.findByNome(nome);
+	}
+	
+	public List<Aluno> findByTelefoneContaining(String telefone){
+		return this.alunoRepository.findByTelefone(telefone);
+	}
+	
+	public List<Aluno> findByTurmaNomeLike(String nome){
+		return this.alunoRepository.findByTurmaNome("%" + nome + "%");
 	}
 }

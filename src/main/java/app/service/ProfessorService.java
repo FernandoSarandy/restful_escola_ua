@@ -15,6 +15,17 @@ public class ProfessorService {
 	private ProfessorRepository professorRepository;
 	
 	public String save(Professor professor) {
+		
+		Professor cadastro = professorRepository.findByEmail(professor.getEmail());
+		
+		if(cadastro != null) {
+			throw new RuntimeException("Email já cadastrado");
+		}
+		
+		if(professor.getEmail().contains("@outlook.com") || professor.getEmail().contains("@outlook.com.br")) {
+			throw new RuntimeException("Domínio de email não permitido");
+		}
+		
 		this.professorRepository.save(professor);
 		return professor.getNome() + " salvo com sucesso!";
 	}
@@ -37,5 +48,17 @@ public class ProfessorService {
 	
 	public List<Professor> findAll(){
 		return this.professorRepository.findAll();
+	}
+	
+	public List<Professor> findByNomeLikeOrEspecialidadeLike(String nome, String especialidade){
+		return this.professorRepository.findByNomeLikeOrEspecialidadeLike(nome, especialidade);
+	}
+	
+	public List<Professor> findByEmailNaoGemail(){
+		return this.professorRepository.findByEmailNaoGmail();
+	}
+	
+	public Professor findByEmail(String email){
+		return this.professorRepository.findByEmail(email);
 	}
 }
