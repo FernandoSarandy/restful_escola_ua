@@ -27,61 +27,37 @@ public class CursoController {
 	
 	@PostMapping("/save")
 	public ResponseEntity<String> save(@RequestBody Curso curso){
-		try {
 			String mensagem = this.cursoService.save(curso);
 			return new ResponseEntity<>(mensagem, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>("Erro!", HttpStatus.BAD_REQUEST);
-		}
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> delete(@PathVariable long id){
-		try {
 			String mensagem = this.cursoService.delete(id);
 			return new ResponseEntity<>(mensagem, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		}
 	}
 	
 	@PutMapping("/update/{id}")
 	public ResponseEntity<String> update(@PathVariable long id, @RequestBody Curso curso){
-		try {
 			String mensagem = this.cursoService.update(id, curso);
 			return new ResponseEntity<>(mensagem, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		}
 	}
 	
 	@GetMapping("/findById/{id}")
 	public ResponseEntity<Curso> findById(@PathVariable long id){
-		try {
 			Curso curso = this.cursoService.findById(id);
 			return new ResponseEntity<>(curso, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		}
 	}
 	
 	@GetMapping("/findAll")
 	public ResponseEntity<List<Curso>> findAll(){
-		try {
 			List<Curso> lista = this.cursoService.findAll();
 			return new ResponseEntity<>(lista, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		}
 	}
 	
 	@GetMapping("/findByName")
 	public ResponseEntity<List<Curso>> findByNome(@RequestParam String nome){
-		try {
 			List<Curso> lista = this.cursoService.findByNome(nome);
 			return new ResponseEntity<>(lista, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		}
 	}
 }
