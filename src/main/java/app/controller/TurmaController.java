@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ import app.service.TurmaService;
 
 @RestController
 @RequestMapping("/api/turma")
+@CrossOrigin("*")
 public class TurmaController {
 
 	@Autowired
@@ -55,9 +57,9 @@ public class TurmaController {
 			return new ResponseEntity<>(lista, HttpStatus.OK);
 	}
 	
-	@GetMapping("/findByAno/{ano}")
-	public ResponseEntity<List<Turma>> findByAno(@PathVariable int ano){
-			List<Turma> lista = this.turmaService.findByAnoBetween(ano);
+	@GetMapping("/findByAno")
+	public ResponseEntity<List<Turma>> findByAno(@RequestParam int anoInicial, int anoFinal){
+			List<Turma> lista = this.turmaService.findByAnoBetween(anoInicial, anoFinal);
 			return new ResponseEntity<>(lista, HttpStatus.OK);
 	}
 	

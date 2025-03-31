@@ -30,16 +30,15 @@ public class Professor {
 	private long id;
 	
 	@NotBlank(message = "O campo nome é obrigatório")
-	@Pattern(regexp = "^\\S+\\s+\\S+.*$\r\n", message = "O nome deve conter nome e sobrenome")
+	//@Pattern(regexp = "^\\S+\\s+\\S+.*$\r\n", message = "O nome deve conter nome e sobrenome")
 	private String nome;
 	
 	@CPF
 	private String cpf;
 	
-	@Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$  \r\n")
+	//@Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$  \r\n")
 	private String email;
 	
-	@Pattern(regexp = "^(|\\S+\\s+\\S+.*)$\r\n")
 	private String especialidade;
 	
 	@ManyToMany(mappedBy = "professores")

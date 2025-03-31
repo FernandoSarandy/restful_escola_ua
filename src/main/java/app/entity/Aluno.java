@@ -26,7 +26,7 @@ public class Aluno {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@NotBlank(message = "O campo nome é obrigatório")
-	@Pattern(regexp = "^\\S+\\s+\\S+.*$\r\n", message = "O nome deve conter nome e sobrenome.")
+	//@Pattern(regexp = "^\\S+\\s+\\S+.*$\r\n", message = "O nome deve conter nome e sobrenome.")
 	private String nome;
 	@CPF
 	private String cpf;
